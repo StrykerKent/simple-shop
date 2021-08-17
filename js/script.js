@@ -65,15 +65,11 @@ let allbtn_shop = document.querySelectorAll('[id^=add_to_cart_]');
 
 for (let i = 0; i < allbtn_shop.length; i++) {
   allbtn_shop[i].addEventListener('click', (e) => {
-    console.log(e);
-    console.log(e.target.attributes[2].value);
-
     const item_id = parseInt(e.target.attributes[2].value);
 
     //match item
     const item = items.filter((x) => x.id === item_id);
 
-    console.log(item);
     count += parseInt(item[0].quantity);
     price += parseInt(item[0].price);
     document.querySelector('#shop_badge').innerHTML = count;
@@ -142,7 +138,6 @@ document.addEventListener('click', (e) => {
       (items_in_cart) => items_in_cart.line_number == line_number
     );
     items_in_cart.splice(index, 1);
-    // console.log(items_in_cart);
 
     // remove item from cart visually
     e.target.closest('.cart_row').remove();
@@ -154,7 +149,7 @@ document.addEventListener('click', (e) => {
         .map((x) => x.price)
         .reduce((accumulator, currentTotal) => accumulator + currentTotal);
     }
-    console.log(total);
+
     price = total;
     document.querySelector('#total').innerHTML = `$${total}`;
   }
