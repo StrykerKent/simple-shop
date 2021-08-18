@@ -37,8 +37,8 @@ const items = [
   },
 ];
 
-// const items_in_cart = [];
-const items_in_cart = [
+// const currentCart = [];
+const currentCart = [
   {
     line_number: 1,
     item_id: 4,
@@ -63,10 +63,10 @@ let quantityTotal = 2;
 let cartTotal = 226;
 
 // add to cart button event. add event to all add to cart buttons
-let allbtn_shop = document.querySelectorAll('[id^=addToCart]');
+let allAddToCartButtons = document.querySelectorAll('[id^=addToCart]');
 
-for (let i = 0; i < allbtn_shop.length; i++) {
-  allbtn_shop[i].addEventListener('click', (e) => {
+for (let i = 0; i < allAddToCartButtons.length; i++) {
+  allAddToCartButtons[i].addEventListener('click', (e) => {
     const item_id = parseInt(e.target.attributes[2].value);
 
     // match item
@@ -92,8 +92,8 @@ for (let i = 0; i < allbtn_shop.length; i++) {
 
     document.querySelector('#cartMain').appendChild(div);
 
-    // add item to items_in_cart
-    items_in_cart.push({
+    // add item to currentCart
+    currentCart.push({
       line_number: lineCount,
       item_id: item[0].id,
       name: `${item[0].name}`,
@@ -127,8 +127,8 @@ document.getElementById('closeCart').addEventListener('click', () => {
 document.getElementById('checkout').addEventListener('click', () => {
   // recalculate total
   let cartTotal = 0;
-  if (items_in_cart.length > 0) {
-    cartTotal = items_in_cart
+  if (currentCart.length > 0) {
+    cartTotal = currentCart
       .map((x) => x.price * x.quantity)
       .reduce((accumulator, currentTotal) => accumulator + currentTotal);
   }
@@ -147,18 +147,18 @@ document.addEventListener('click', (e) => {
       .getAttribute('data-line-number');
 
     // find index of line number in cart array
-    let index = items_in_cart.findIndex(
-      (items_in_cart) => items_in_cart.line_number == line_number
+    let index = currentCart.findIndex(
+      (currentCart) => currentCart.line_number == line_number
     );
 
     //remove item from cart array
-    items_in_cart.splice(index, 1);
+    currentCart.splice(index, 1);
 
     // remove item from cart visually
     e.target.closest('.cart_row').remove();
 
     // update quantity total
-    quantityTotal = items_in_cart
+    quantityTotal = currentCart
       .map((x) => parseInt(x.quantity))
       .reduce((accumulator, currentTotal) => accumulator + currentTotal);
 
@@ -167,8 +167,8 @@ document.addEventListener('click', (e) => {
 
     // recalculate total
     let cartTotal = 0;
-    if (items_in_cart.length > 0) {
-      cartTotal = items_in_cart
+    if (currentCart.length > 0) {
+      cartTotal = currentCart
         .map((x) => x.price * x.quantity)
         .reduce((accumulator, currentTotal) => accumulator + currentTotal);
     }
@@ -187,17 +187,17 @@ document.addEventListener('change', (e) => {
       .getAttribute('data-line-number');
     // let line_number = getLineNumber(e.target.closest('.cart_row'));
 
-    // change quantity for item in items_in_cart
+    // change quantity for item in currentCart
     // find index of line number in cart array
-    let index = items_in_cart.findIndex(
-      (items_in_cart) => items_in_cart.line_number == line_number
+    let index = currentCart.findIndex(
+      (currentCart) => currentCart.line_number == line_number
     );
 
     // update quantity in cart array
-    items_in_cart[index].quantity = parseInt(e.target.value);
+    currentCart[index].quantity = parseInt(e.target.value);
 
     // update quantity total
-    quantityTotal = items_in_cart
+    quantityTotal = currentCart
       .map((x) => parseInt(x.quantity))
       .reduce((accumulator, currentTotal) => accumulator + currentTotal);
 
@@ -206,8 +206,8 @@ document.addEventListener('change', (e) => {
 
     // recalculate total
     let cartTotal = 0;
-    if (items_in_cart.length > 0) {
-      cartTotal = items_in_cart
+    if (currentCart.length > 0) {
+      cartTotal = currentCart
         .map((x) => x.price * x.quantity)
         .reduce((accumulator, currentTotal) => accumulator + currentTotal);
     }
@@ -220,8 +220,8 @@ document.addEventListener('change', (e) => {
 
 // const updateTotal = () => {
 //   let cartTotal = 0;
-//   if (items_in_cart.length > 0) {
-//     cartTotal = items_in_cart
+//   if (currentCart.length > 0) {
+//     cartTotal = currentCart
 //       .map((x) => x.price * x.quantity)
 //       .reduce((accumulator, currentTotal) => accumulator + currentTotal);
 //   }
