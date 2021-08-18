@@ -63,7 +63,7 @@ let quantityTotal = 2;
 let cartTotal = 226;
 
 // add to cart button event. add event to all add to cart buttons
-let allbtn_shop = document.querySelectorAll('[id^=add_to_cart_]');
+let allbtn_shop = document.querySelectorAll('[id^=addToCart]');
 
 for (let i = 0; i < allbtn_shop.length; i++) {
   allbtn_shop[i].addEventListener('click', (e) => {
@@ -75,12 +75,12 @@ for (let i = 0; i < allbtn_shop.length; i++) {
     lineCount++;
     quantityTotal += parseInt(item[0].quantity);
     cartTotal += parseInt(item[0].price);
-    document.querySelector('#shop_badge').innerHTML = quantityTotal;
+    document.querySelector('#cartBadge').innerHTML = quantityTotal;
 
     // add item to cart
     let div = document.createElement('div');
     div.className = 'row cart_row item_text mt-3';
-    div.setAttribute('data-line_number', lineCount);
+    div.setAttribute('data-line-number', lineCount);
     div.innerHTML = `
       <div>${item[0].name}</div>
       <div>$${item[0].price}</div>
@@ -90,7 +90,7 @@ for (let i = 0; i < allbtn_shop.length; i++) {
       </div>
     `;
 
-    document.querySelector('#cart_main').appendChild(div);
+    document.querySelector('#cartMain').appendChild(div);
 
     // add item to items_in_cart
     items_in_cart.push({
@@ -107,7 +107,7 @@ for (let i = 0; i < allbtn_shop.length; i++) {
 }
 
 // on click cart on header (show cart)
-document.querySelector('#cart_btn').addEventListener('click', () => {
+document.querySelector('#cartBtn').addEventListener('click', () => {
   let cart = document.querySelector('#cart');
   // toggle showing and hiding cart
   if (cart.className.includes('hide')) {
@@ -118,7 +118,7 @@ document.querySelector('#cart_btn').addEventListener('click', () => {
 });
 
 // close cart
-document.getElementById('close_cart').addEventListener('click', () => {
+document.getElementById('closeCart').addEventListener('click', () => {
   // add class hide
   document.getElementById('cart').classList.add('hide');
 });
@@ -144,7 +144,7 @@ document.addEventListener('click', (e) => {
     // get line number
     let line_number = e.target
       .closest('.cart_row')
-      .getAttribute('data-line_number');
+      .getAttribute('data-line-number');
 
     // find index of line number in cart array
     let index = items_in_cart.findIndex(
@@ -163,7 +163,7 @@ document.addEventListener('click', (e) => {
       .reduce((accumulator, currentTotal) => accumulator + currentTotal);
 
     // change quantity total in nav
-    document.querySelector('#shop_badge').innerHTML = quantityTotal;
+    document.querySelector('#cartBadge').innerHTML = quantityTotal;
 
     // recalculate total
     let cartTotal = 0;
@@ -184,7 +184,7 @@ document.addEventListener('change', (e) => {
     // get line number
     let line_number = e.target
       .closest('.cart_row')
-      .getAttribute('data-line_number');
+      .getAttribute('data-line-number');
     // let line_number = getLineNumber(e.target.closest('.cart_row'));
 
     // change quantity for item in items_in_cart
@@ -195,7 +195,6 @@ document.addEventListener('change', (e) => {
 
     // update quantity in cart array
     items_in_cart[index].quantity = parseInt(e.target.value);
-    console.log(items_in_cart);
 
     // update quantity total
     quantityTotal = items_in_cart
@@ -203,7 +202,7 @@ document.addEventListener('change', (e) => {
       .reduce((accumulator, currentTotal) => accumulator + currentTotal);
 
     // change quantity total in nav
-    document.querySelector('#shop_badge').innerHTML = quantityTotal;
+    document.querySelector('#cartBadge').innerHTML = quantityTotal;
 
     // recalculate total
     let cartTotal = 0;
@@ -230,5 +229,5 @@ document.addEventListener('change', (e) => {
 // };
 
 // const getLineNumber = (target) => {
-//   return target.getAttribute('data-line_number');
+//   return target.getAttribute('data-line-number');
 // };

@@ -201,7 +201,8 @@ main {
   font-size: 1rem;
 }
 
-/* // X-Small devices (portrait phones, less than 576px) */
+/* // X-Small devices (portrait phones, less than 576px) 
+   // all css above */
 
 /* // Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
